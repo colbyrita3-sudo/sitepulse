@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root{
+  --bg:#05070c;
+  --text:rgba(255,255,255,.92);
+
+  /* emerald/teal accent */
+  --accent:#2EE7B6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+body{
+  background:
+    radial-gradient(1000px 600px at 50% -10%, rgba(46,231,182,.22), transparent 55%),
+    radial-gradient(900px 500px at 10% 40%, rgba(46,231,182,.10), transparent 60%),
+    radial-gradient(900px 500px at 90% 60%, rgba(46,231,182,.08), transparent 60%),
+    var(--bg);
+  color: var(--text);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Glow headline effect (like his) */
+.glow {
+  text-shadow:
+    0 0 24px rgba(46,231,182,.35),
+    0 0 52px rgba(46,231,182,.22);
 }
