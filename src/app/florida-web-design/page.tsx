@@ -3,14 +3,16 @@ import Link from "next/link";
 import Card from "@/components/Card";
 
 export const metadata: Metadata = {
-  title: "Florida Web Design | SitePulse by Colby",
+  title: "Florida Web Design | SitePulse",
   description:
     "Web design + SEO for small businesses across Florida. Premium websites built to convert visitors into calls and leads. Orlando + Central Florida focused.",
-  alternates: { canonical: "/florida-web-design" },
+  // ✅ Absolute canonical
+  alternates: { canonical: "https://www.sitepulse.llc/florida-web-design" },
   openGraph: {
-    title: "Florida Web Design | SitePulse by Colby",
+    title: "Florida Web Design | SitePulse",
     description: "Premium web design + SEO for Florida small businesses. Built to rank and convert.",
-    url: "/florida-web-design",
+    // ✅ Absolute URL
+    url: "https://www.sitepulse.llc/florida-web-design",
     siteName: "SitePulse",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Florida Web Design" }],
     locale: "en_US",
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Florida Web Design | SitePulse by Colby",
+    title: "Florida Web Design | SitePulse",
     description: "Premium web design + SEO for Florida small businesses.",
     images: ["/og-image.png"],
   },
@@ -101,6 +103,53 @@ export default function FloridaWebDesignPage() {
               Focus areas: Orlando • Apopka • Longwood • Winter Park • Maitland • Lake Mary • Sanford • Oviedo •
               Winter Springs • Altamonte Springs • Central Florida
             </p>
+          </div>
+
+          {/* ✅ Internal linking block (helps indexing + crawl signals) */}
+          <div className="mx-auto mt-6 max-w-3xl rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur">
+            <div className="text-sm font-semibold text-white/80">Explore related pages</div>
+            <p className="mt-2 text-sm text-white/60">
+              Service areas and niche pages help Google understand what we build and who we serve.
+            </p>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Link
+                href="/orlando-web-design"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Orlando Web Design →
+              </Link>
+              <Link
+                href="/apopka-web-design"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Apopka Web Design →
+              </Link>
+              <Link
+                href="/seo-orlando"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                SEO Orlando →
+              </Link>
+              <Link
+                href="/websites-for-contractors"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Contractor Websites →
+              </Link>
+              <Link
+                href="/websites-for-pressure-washing"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Pressure Washing →
+              </Link>
+              <Link
+                href="/websites-for-mobile-detailing"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Mobile Detailing →
+              </Link>
+            </div>
           </div>
         </div>
       </Section>

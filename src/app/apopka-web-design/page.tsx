@@ -3,14 +3,15 @@ import Link from "next/link";
 import Card from "@/components/Card";
 
 export const metadata: Metadata = {
-  title: "Apopka Web Design | SitePulse by Colby",
+  title: "Apopka Web Design | SitePulse",
   description:
     "Web design + SEO for small businesses in Apopka, FL. Premium websites built to convert visitors into calls and leads. Serving Apopka and surrounding areas.",
-  alternates: { canonical: "/apopka-web-design" },
+  // ✅ Use absolute canonical (prevents duplicate/canonical confusion)
+  alternates: { canonical: "https://www.sitepulse.llc/apopka-web-design" },
   openGraph: {
-    title: "Apopka Web Design | SitePulse by Colby",
+    title: "Apopka Web Design | SitePulse",
     description: "Premium web design + local SEO for Apopka small businesses. Built to rank and convert.",
-    url: "/apopka-web-design",
+    url: "https://www.sitepulse.llc/apopka-web-design",
     siteName: "SitePulse",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Apopka Web Design" }],
     locale: "en_US",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Apopka Web Design | SitePulse by Colby",
+    title: "Apopka Web Design | SitePulse",
     description: "Premium web design + local SEO for Apopka small businesses.",
     images: ["/og-image.png"],
   },
@@ -100,6 +101,53 @@ export default function ApopkaWebDesignPage() {
             <p className="text-white/70">
               Serving: Apopka • Wekiwa Springs • Altamonte Springs • Longwood • Maitland • Winter Park • Orlando
             </p>
+          </div>
+
+          {/* ✅ Internal linking block (helps indexing + crawl signals) */}
+          <div className="mx-auto mt-6 max-w-3xl rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur">
+            <div className="text-sm font-semibold text-white/80">Related pages</div>
+            <p className="mt-2 text-sm text-white/60">
+              Explore nearby service areas and niche examples to see what we build.
+            </p>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Link
+                href="/orlando-web-design"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Orlando Web Design →
+              </Link>
+              <Link
+                href="/florida-web-design"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Florida Web Design →
+              </Link>
+              <Link
+                href="/seo-orlando"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                SEO Orlando →
+              </Link>
+              <Link
+                href="/websites-for-contractors"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Contractor Websites →
+              </Link>
+              <Link
+                href="/websites-for-pressure-washing"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Pressure Washing →
+              </Link>
+              <Link
+                href="/websites-for-mobile-detailing"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Mobile Detailing →
+              </Link>
+            </div>
           </div>
         </div>
       </Section>

@@ -3,14 +3,16 @@ import Link from "next/link";
 import Card from "@/components/Card";
 
 export const metadata: Metadata = {
-  title: "SEO Orlando | Local SEO + Web Design | SitePulse by Colby",
+  title: "SEO Orlando | Local SEO + Web Design | SitePulse",
   description:
     "Local SEO in Orlando for small businesses. Learn the fastest way to get found on Google: website foundations + Google Business Profile + reviews + local signals.",
-  alternates: { canonical: "/seo-orlando" },
+  // ✅ Absolute canonical
+  alternates: { canonical: "https://www.sitepulse.llc/seo-orlando" },
   openGraph: {
-    title: "SEO Orlando | SitePulse by Colby",
+    title: "SEO Orlando | SitePulse",
     description: "Local SEO + web design fundamentals to help Orlando businesses get found on Google.",
-    url: "/seo-orlando",
+    // ✅ Absolute URL
+    url: "https://www.sitepulse.llc/seo-orlando",
     siteName: "SitePulse",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SEO Orlando" }],
     locale: "en_US",
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SEO Orlando | SitePulse by Colby",
+    title: "SEO Orlando | SitePulse",
     description: "Local SEO + web design fundamentals to help Orlando businesses get found on Google.",
     images: ["/og-image.png"],
   },
@@ -73,6 +75,13 @@ export default function SEOOrlandoPage() {
             <span className="text-white/80">reviews</span> + consistent local signals.
           </p>
 
+          {/* ✅ Extra unique Orlando-specific copy (helps indexing decisions) */}
+          <p className="mx-auto mt-4 max-w-3xl text-sm md:text-base text-white/60">
+            For Orlando service businesses (contractors, pressure washing, detailing, home services), the biggest SEO wins
+            usually come from fixing the fundamentals: clear service pages, city targeting, fast mobile speed, and a Google
+            Business Profile that matches your services and locations.
+          </p>
+
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/form"
@@ -94,6 +103,53 @@ export default function SEOOrlandoPage() {
             >
               Text Now
             </a>
+          </div>
+
+          {/* ✅ Internal linking block */}
+          <div className="mx-auto mt-10 max-w-3xl rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur">
+            <div className="text-sm font-semibold text-white/80">Related pages</div>
+            <p className="mt-2 text-sm text-white/60">
+              Explore service areas and niche examples to build topical authority and strengthen internal linking.
+            </p>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Link
+                href="/orlando-web-design"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Orlando Web Design →
+              </Link>
+              <Link
+                href="/apopka-web-design"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Apopka Web Design →
+              </Link>
+              <Link
+                href="/florida-web-design"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Florida Web Design →
+              </Link>
+              <Link
+                href="/websites-for-contractors"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Contractor Websites →
+              </Link>
+              <Link
+                href="/websites-for-pressure-washing"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Pressure Washing →
+              </Link>
+              <Link
+                href="/websites-for-mobile-detailing"
+                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/80 hover:bg-white/[0.06] hover:text-white transition"
+              >
+                Mobile Detailing →
+              </Link>
+            </div>
           </div>
         </div>
       </Section>

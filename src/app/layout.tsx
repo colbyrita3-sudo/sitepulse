@@ -3,13 +3,12 @@ import Script from "next/script";
 import "./globals.css";
 
 // 👉 CHANGE THIS when you have your real domain.
-// For now you can leave it as-is. When you buy your domain, update it.
-const SITE_URL = "https://sitepulsebycolby.com";
+const SITE_URL = "https://www.sitepulse.llc";
 
 const BRAND = "SitePulse by Colby";
 const SITE_NAME = "SitePulse";
 const OWNER = "Colby";
-const PHONE = "(407) 274-6660";
+const PHONE = "407-252-8476";
 const EMAIL = "colbyrita300@gmail.com";
 
 // Location targeting (edit as you want)
@@ -69,7 +68,6 @@ export const metadata: Metadata = {
   creator: OWNER,
   publisher: BRAND,
 
-  // ✅ These help Google know what your site is about.
   keywords: PRIMARY_KEYWORDS,
 
   alternates: {
@@ -85,7 +83,6 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     images: [
       {
-        // Optional: add /og-image.png later (I’ll help you make it).
         url: "/og-image.png",
         width: 1200,
         height: 630,
@@ -98,8 +95,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `${BRAND} | Web Design + SEO in ${CITY_PRIMARY}, ${STATE}`,
-    description:
-      `Modern websites + SEO for small businesses. Serving ${CITY_PRIMARY} and Florida.`,
+    description: `Modern websites + SEO for small businesses. Serving ${CITY_PRIMARY} and Florida.`,
     images: ["/og-image.png"],
   },
 
@@ -116,10 +112,15 @@ export const metadata: Metadata = {
   },
 
   category: "Web Design",
+
+  // ✅ Favicons (these must exist in /public)
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" }, // add this file to /public
+    ],
+    shortcut: [{ url: "/favicon.ico" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
   },
 };
 
@@ -128,8 +129,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ✅ JSON-LD schema tells Google EXACTLY who you are and what you offer.
-  // This improves “understanding” and can help rich results over time.
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -149,11 +148,7 @@ export default function RootLayout({
       addressRegion: STATE,
       addressCountry: "US",
     },
-    sameAs: [
-      // Add social links later if you want.
-      // "https://www.instagram.com/...",
-      // "https://www.facebook.com/...",
-    ],
+    sameAs: [],
   };
 
   const serviceSchema = {
@@ -180,7 +175,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* ✅ Structured Data (Schema) */}
         <Script
           id="local-business-schema"
           type="application/ld+json"

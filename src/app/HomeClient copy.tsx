@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Card from "@/components/Card";
 
 const navLinks = [
@@ -12,21 +12,11 @@ const navLinks = [
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
-
 const areasLinks = [
   { label: "Orlando Web Design", href: "/orlando-web-design" },
   { label: "Apopka Web Design", href: "/apopka-web-design" },
-  { label: "Longwood Web Design", href: "/longwood-web-design" },
-  { label: "Winter Park Web Design", href: "/winter-park-web-design" },
-  { label: "Lake Mary Web Design", href: "/lake-mary-web-design" },
-  { label: "Sanford Web Design", href: "/sanford-web-design" },
   { label: "Florida Web Design", href: "/florida-web-design" },
   { label: "SEO Orlando", href: "/seo-orlando" },
-  { label: "Websites for Contractors", href: "/websites-for-contractors" },
-
-  // ✅ Added niche links
-  { label: "Websites for Pressure Washing", href: "/websites-for-pressure-washing" },
-  { label: "Websites for Mobile Detailing", href: "/websites-for-mobile-detailing" },
 ];
 
 /** Simple inline icons (no installs needed) */
@@ -155,32 +145,24 @@ function GlowSection({ id, children }: { id: string; children: React.ReactNode }
 
 export default function HomeClient() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showSticky, setShowSticky] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setShowSticky(window.scrollY > 520);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const whyCards = useMemo(
     () => [
       { icon: <Icon name="search" />, title: "Google Visibility", text: "When people search for your service, you want to show up. A website gives you a real chance to rank and get picked." },
       { icon: <Icon name="users" />, title: "More Customers", text: "Your site works 24/7—building trust, answering questions, and turning visitors into leads while you’re busy." },
-      { icon: <Icon name="sparkle" />, title: "Strong First Impression", text: "Most people decide fast. A clean website makes you look legit, trustworthy, and worth contacting." },
-      { icon: <Icon name="mail" />, title: "Easy Contact", text: "Stop losing leads in DMs. Forms and buttons capture every inquiry so you can follow up and close more deals." },
-      { icon: <Icon name="crown" />, title: "Brand Presence", text: "Your own domain, your own look, your own space. A strong site separates you from average competitors." },
-      { icon: <Icon name="dollar" />, title: "Long-Term Asset", text: "A good website can pay for itself quickly. It’s a long-term asset that keeps bringing customers back." },
+      { icon: <Icon name="sparkle" />, title: "Professional First Impression", text: "Most people decide fast. A clean, modern website makes you look legit, trustworthy, and worth contacting." },
+      { icon: <Icon name="mail" />, title: "Easy Contact & Inquiries", text: "Stop losing leads in DMs. Forms and buttons capture every inquiry so you can follow up and close more deals." },
+      { icon: <Icon name="crown" />, title: "Elevate Your Brand", text: "Your own domain, your own look, your own space. A premium site separates you from average competitors." },
+      { icon: <Icon name="dollar" />, title: "A Real Investment", text: "A good website can pay for itself quickly. It’s a long-term asset that keeps bringing customers back." },
     ],
     []
   );
 
   const services = useMemo(
     () => [
-      { icon: <Icon name="paint" />, title: "Modern Design", desc: "A clean look built for your niche—so customers trust you instantly and you stand out." },
+      { icon: <Icon name="paint" />, title: "Premium Design", desc: "A modern look built for your niche—so customers trust you instantly and you stand out." },
       { icon: <Icon name="rocket" />, title: "Speed + SEO Setup", desc: "Fast load times, clean structure, and SEO foundations to help you rank and convert." },
-      { icon: <Icon name="calendar" />, title: "Lead & Contact Setup", desc: "Buttons + forms set up the right way, so people can contact you in seconds without friction." },
+      { icon: <Icon name="calendar" />, title: "Lead & Booking Setup", desc: "Buttons + forms set up the right way, so people can contact you in seconds without friction." },
     ],
     []
   );
@@ -228,21 +210,23 @@ export default function HomeClient() {
   ];
 
   function handleNavClick(href: string) {
-    setMenuOpen(false);
+  setMenuOpen(false);
 
-    if (href.startsWith("#")) {
-      setTimeout(() => {
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 0);
-      return;
-    }
-
-    window.location.href = href;
+  // If it's an on-page section, smooth scroll
+  if (href.startsWith("#")) {
+    setTimeout(() => {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 0);
+    return;
   }
 
+  // Otherwise, go to the page
+  window.location.href = href;
+}
+
   return (
-    <main id="home" className="min-h-screen pb-28 md:pb-0">
+    <main id="home" className="min-h-screen">
       <div className="h-10" />
 
       {/* NAV */}
@@ -253,33 +237,45 @@ export default function HomeClient() {
               <div className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/[0.03] font-semibold">
                 SP
               </div>
-              <div className="text-xs sm:text-sm font-semibold text-white/80">SitePulse</div>
+              <div className="hidden sm:block text-sm font-semibold text-white/80">SitePulse</div>
             </div>
 
-            <nav className="hidden md:flex items-center gap-7 text-sm text-white/70">
-              {navLinks.map((l) => (
-                <a key={l.href} href={l.href} className="hover:text-white transition">
-                  {l.label}
-                </a>
-              ))}
+           <nav className="hidden md:flex items-center gap-7 text-sm text-white/70">
+  {navLinks.map((l) => (
+    <a key={l.href} href={l.href} className="hover:text-white transition">
+      {l.label}
+    </a>
+  ))}
 
-              {/* Areas dropdown */}
-              <div className="relative group">
-                <button type="button" className="inline-flex items-center gap-2 hover:text-white transition" aria-label="Open Areas menu">
-                  Areas <span className="text-white/50 group-hover:text-white/80 transition">▾</span>
-                </button>
+    {/* Areas dropdown (fixed hover gap) */}
+  <div className="relative group">
+    <button
+      type="button"
+      className="inline-flex items-center gap-2 hover:text-white transition"
+      aria-label="Open Areas menu"
+    >
+      Areas
+      <span className="text-white/50 group-hover:text-white/80 transition">▾</span>
+    </button>
 
-                <div className="absolute right-0 top-full pt-2 invisible opacity-0 pointer-events-none group-hover:visible group-hover:opacity-100 group-hover:pointer-events-auto transition">
-                  <div className="w-64 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.55)] p-2">
-                    {areasLinks.map((a) => (
-                      <a key={a.href} href={a.href} className="block rounded-xl px-3 py-2 text-sm text-white/75 hover:text-white hover:bg-white/[0.06] transition">
-                        {a.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </nav>
+    {/* The pt-2 creates a "hover bridge" so the menu doesn't disappear */}
+    <div
+      className="absolute right-0 top-full pt-2 invisible opacity-0 pointer-events-none group-hover:visible group-hover:opacity-100 group-hover:pointer-events-auto transition"
+    >
+      <div className="w-60 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.55)] p-2">
+        {areasLinks.map((a) => (
+          <a
+            key={a.href}
+            href={a.href}
+            className="block rounded-xl px-3 py-2 text-sm text-white/75 hover:text-white hover:bg-white/[0.06] transition"
+          >
+            {a.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</nav>
 
             <div className="flex items-center gap-2">
               <a
@@ -312,26 +308,24 @@ export default function HomeClient() {
                   {l.label}
                 </button>
               ))}
-
               <div className="mt-2 rounded-xl border border-white/10 bg-white/[0.03] p-2">
-                <div className="px-2 pb-2 text-xs font-semibold text-white/50">Areas</div>
-                {areasLinks.map((a) => (
-                  <button
-                    key={a.href}
-                    onClick={() => handleNavClick(a.href)}
-                    className="w-full text-left rounded-xl px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/[0.06] transition"
-                  >
-                    {a.label}
-                  </button>
-                ))}
-              </div>
-
+  <div className="px-2 pb-2 text-xs font-semibold text-white/50">Areas</div>
+  {areasLinks.map((a) => (
+    <button
+      key={a.href}
+      onClick={() => handleNavClick(a.href)}
+      className="w-full text-left rounded-xl px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/[0.06] transition"
+    >
+      {a.label}
+    </button>
+  ))}
+</div>
               <a
                 href="/form"
                 className="mt-1 rounded-xl bg-[color:var(--accent)] px-4 py-3 text-sm font-semibold text-black hover:brightness-110 transition text-center"
                 onClick={() => setMenuOpen(false)}
               >
-                Start Your Website →
+                Start Your Website
               </a>
             </div>
           </div>
@@ -342,63 +336,62 @@ export default function HomeClient() {
       <GlowSection id="home">
         <div className="text-center">
           <h1 className="mx-auto max-w-4xl text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
-            A Website That Makes You Look <span className="text-[color:var(--accent)] glow">Professional</span>.
+            A Website That Makes You Look <span className="text-[color:var(--accent)] glow">Premium</span>.
             <br />
             Built Fast. Built Right.
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-sm md:text-base text-white/60">
-            I’m Colby. I build clean, fast websites that make it easy for customers to contact you—so you get more real
-            inquiries, not just clicks. Serving Orlando + Central Florida.
+            I’m Colby. I build modern websites for service businesses—so you stand out, look legit, and get more leads.
           </p>
 
-          {/* Clean hero CTAs (mixed wording) */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
-              href="/form"
-              className="w-full sm:w-auto rounded-full bg-[color:var(--accent)] px-8 py-3 font-semibold text-black hover:brightness-110 transition"
-            >
-              Get Started
-            </a>
+         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+  <a
+    href="/form"
+    className="w-full sm:w-auto rounded-full bg-[color:var(--accent)] px-8 py-3 font-semibold text-black hover:brightness-110 transition"
+  >
+    Get Started
+  </a>
 
-            <a
-              href="sms:4072528476?&body=Hey%20Colby%2C%20I%20need%20a%20website%20for%20my%20business.%20Can%20you%20help%3F"
-              className="w-full sm:w-auto rounded-full border border-white/15 bg-white/[0.03] px-8 py-3 font-semibold text-white/85 hover:bg-white/[0.06] transition"
-            >
-              Text Now
-            </a>
-          </div>
+  <a
+    href="#why"
+    className="w-full sm:w-auto rounded-full border border-white/15 bg-white/[0.03] px-8 py-3 font-semibold text-white/85 hover:bg-white/[0.06] transition"
+  >
+    Why It Matters
+  </a>
 
-          {/* subtle lead magnet link (not pushy) */}
-          <div className="mt-4 text-sm text-white/60">
-            Not ready yet?{" "}
-            <a
-              href={`/form?plan=${encodeURIComponent("Free Audit")}`}
-              className="font-semibold text-white/80 hover:text-white underline decoration-white/20 hover:decoration-white/50 transition"
-            >
-              Request a free website audit
-            </a>
-            .
-          </div>
-
-          {/* Proof strip */}
+ <a
+  href="sms:4072528476?&body=Hey%20Colby%2C%20I%20saw%20SitePulse%20and%20I%20need%20a%20website%20for%20my%20business.%20Can%20you%20help%3F"
+  className="w-full sm:w-auto rounded-full bg-[color:var(--accent)] px-8 py-3 font-semibold text-black hover:brightness-110 transition"
+>
+  Text Now
+</a>
+</div>
+          {/* PROOF STRIP (trust + conversion) */}
           <div className="mx-auto mt-8 max-w-4xl">
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur">
                 <div className="text-sm font-semibold text-white/85">Built to Convert</div>
-                <div className="mt-1 text-xs text-white/55">Clear CTAs, clean layout, and friction-free contact flow.</div>
+                <div className="mt-1 text-xs text-white/55">
+                  Clear CTAs, clean layout, and fast contact flow.
+                </div>
               </div>
+
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur">
                 <div className="text-sm font-semibold text-white/85">SEO-Ready Structure</div>
-                <div className="mt-1 text-xs text-white/55">Titles, headings, service areas, and niche targeting.</div>
+                <div className="mt-1 text-xs text-white/55">
+                  Titles, headings, service areas, and niche targeting.
+                </div>
               </div>
+
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur">
                 <div className="text-sm font-semibold text-white/85">Fast Turnaround</div>
-                <div className="mt-1 text-xs text-white/55">Launch-ready websites built quickly and professionally.</div>
+                <div className="mt-1 text-xs text-white/55">
+                  Launch-ready sites built quickly and professionally.
+                </div>
               </div>
             </div>
           </div>
-
           <div className="mx-auto mt-10 max-w-2xl">
             <div className="mx-auto h-10 w-px bg-[color:var(--accent)]/60" />
             <p className="mt-4 text-sm italic text-white/55">“You focus on running your business. I’ll handle the website and make it look top-tier.”</p>
@@ -414,7 +407,7 @@ export default function HomeClient() {
             About <span className="text-[color:var(--accent)] glow">SitePulse</span>
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-center text-white/60">
-            I’m Colby. I build clean, modern websites for service businesses. The goal is simple: make you look sharp online and make it easy for customers to contact you.
+            I’m Colby. I build clean, modern websites for local service businesses. The goal is simple: make you look premium online and make it easy for customers to contact you.
           </p>
         </Card>
       </GlowSection>
@@ -471,8 +464,7 @@ export default function HomeClient() {
           ))}
         </div>
       </GlowSection>
-
-      {/* SERVICE AREAS + NICHES */}
+      {/* SERVICE AREAS + NICHES (SEO BOOST) */}
       <GlowSection id="areas">
         <div className="text-center">
           <h2 className="text-3xl md:text-6xl font-semibold tracking-tight">
@@ -480,8 +472,8 @@ export default function HomeClient() {
             <span className="text-[color:var(--accent)] glow">Central Florida</span>
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-white/60">
-            I build modern websites for service businesses across Orlando, Apopka, Longwood, Winter Park, Lake Mary,
-            Sanford, Oviedo, and surrounding areas.
+            I build modern websites for local service businesses across Orlando, Apopka, Longwood, Winter Park,
+            Lake Mary, Sanford, Oviedo, and surrounding areas.
           </p>
         </div>
 
@@ -492,18 +484,32 @@ export default function HomeClient() {
               Orlando • Apopka • Longwood • Altamonte Springs • Winter Park • Maitland • Lake Mary • Sanford • Oviedo •
               Casselberry • Winter Springs • Ocoee • Clermont • Winter Garden • Kissimmee
             </p>
-
             <div className="mt-4 flex flex-wrap gap-2">
-              <a href="/orlando-web-design" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">Orlando →</a>
-              <a href="/apopka-web-design" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">Apopka →</a>
-              <a href="/longwood-web-design" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">Longwood →</a>
-              <a href="/winter-park-web-design" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">Winter Park →</a>
-              <a href="/lake-mary-web-design" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">Lake Mary →</a>
-              <a href="/sanford-web-design" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">Sanford →</a>
-              <a href="/florida-web-design" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">Florida →</a>
-              <a href="/seo-orlando" className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition">SEO →</a>
-            </div>
-
+  <a
+    href="/orlando-web-design"
+    className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition"
+  >
+    Orlando Web Design →
+  </a>
+  <a
+    href="/apopka-web-design"
+    className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition"
+  >
+    Apopka Web Design →
+  </a>
+  <a
+    href="/florida-web-design"
+    className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition"
+  >
+    Florida Web Design →
+  </a>
+  <a
+    href="/seo-orlando"
+    className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/75 hover:bg-white/[0.06] hover:text-white transition"
+  >
+    SEO Orlando →
+  </a>
+</div>
             <div className="mt-5">
               <a
                 href="/form"
@@ -520,51 +526,37 @@ export default function HomeClient() {
               Mobile Detailing • Pressure Washing • Junk Removal • Roofing • Plumbing • HVAC • Landscaping • Electricians
               • Painters • Flooring • Party Rentals • Locksmiths • Cleaning Services • Moving Companies • Auto Shops
             </p>
-
-            {/* ✅ Replaced single link with 3 clickable niche buttons */}
             <p className="mt-4 text-sm text-white/60">
-              Want to see niche examples?
+              If your customers search for you on Google, you need a site that looks premium and converts.
             </p>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              <a
-                href="/websites-for-contractors"
-                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/85 hover:bg-white/[0.06] transition"
-              >
-                Contractors →
-              </a>
-
-              <a
-                href="/websites-for-pressure-washing"
-                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/85 hover:bg-white/[0.06] transition"
-              >
-                Pressure Washing →
-              </a>
-
-              <a
-                href="/websites-for-mobile-detailing"
-                className="rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/85 hover:bg-white/[0.06] transition"
-              >
-                Mobile Detailing →
-              </a>
-            </div>
           </Card>
         </div>
-      </GlowSection>
 
-      {/* WORK */}
+        {/* Internal links (future ranking pages) */}
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+          <h3 className="text-base font-semibold text-white/85">Looking for a specific area?</h3>
+          <p className="mt-2 text-sm text-white/60">
+            We’ll be adding dedicated pages like <span className="text-white/80">Orlando Web Design</span>,{" "}
+            <span className="text-white/80">Apopka Web Design</span>, and{" "}
+            <span className="text-white/80">Florida Web Design</span> to help you rank faster.
+          </p>
+        </div>
+      </GlowSection>
+            {/* PORTFOLIO / RECENT WORK */}
       <GlowSection id="work">
         <div className="text-center">
           <h2 className="text-3xl md:text-6xl font-semibold tracking-tight">
             Recent <span className="text-[color:var(--accent)] glow">Work</span>
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-white/60">
-            A quick look at the style of clean, conversion-focused websites I build.
+            A quick look at the style of premium, conversion-focused websites I build for local service businesses.
           </p>
         </div>
 
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
+          {/* Featured build (premium frame + click-to-open) */}
           <Card className="overflow-hidden p-0">
+            {/* "Browser frame" header */}
             <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-3">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
@@ -572,12 +564,12 @@ export default function HomeClient() {
                 <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
               </div>
               <div className="hidden sm:block w-full max-w-[360px] rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-white/55">
-                sitepulse.llc / preview
+                sitepulsebycolby.com / preview
               </div>
               <div className="text-xs font-semibold text-white/50">Portfolio</div>
             </div>
 
-            {/* IMAGE with clean overlay */}
+            {/* Image area (click opens image in new tab) */}
             <a
               href="/portfolio/allstars-demo.png"
               target="_blank"
@@ -586,54 +578,129 @@ export default function HomeClient() {
               aria-label="Open portfolio preview image"
               title="Open image"
             >
+              {/* Glow behind image */}
+              <div className="pointer-events-none absolute inset-0">
+                <div className="absolute left-1/2 top-6 h-40 w-[520px] -translate-x-1/2 rounded-full bg-[color:var(--accent)]/12 blur-3xl" />
+              </div>
+
               <img
                 src="/portfolio/allstars-demo.png"
-                alt="Portfolio preview — demo website homepage"
+                alt="Portfolio preview — mobile detailing homepage"
                 className="h-[260px] w-full object-cover transition duration-500 group-hover:scale-[1.03] sm:h-[340px]"
               />
 
+              {/* Dark gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
 
+              {/* Small “click to open” hint */}
               <div className="absolute right-4 top-4 rounded-full border border-white/12 bg-black/45 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur">
                 Click to open
               </div>
 
+              {/* Badge + text */}
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-xs font-semibold text-white/85 backdrop-blur">
                     Demo Build • Mobile Detailing
                   </div>
                   <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/35 px-3 py-1 text-xs font-semibold text-white/70 backdrop-blur">
-                    Lead-focused layout
+                    Conversion-first layout
                   </div>
                 </div>
 
-                <h3 className="mt-3 text-xl font-semibold">“Get a Quote” lead layout</h3>
+                <h3 className="mt-3 text-xl font-semibold">Premium “Get a Quote” lead layout</h3>
                 <p className="mt-2 text-sm text-white/70">
-                  Hero + trust elements + clear CTAs, designed to drive quote requests.
+                  Hero + trust elements + clear CTAs, designed to drive texts/calls and quote requests.
                 </p>
               </div>
             </a>
 
-            {/* Case study BELOW image */}
+            {/* Tags + note + next slot */}
             <div className="p-6">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/60">
-                <div className="font-semibold text-white/80">Mini case study (demo build)</div>
-                <ul className="mt-2 grid gap-2">
-                  <li><span className="text-white/80 font-semibold">Goal:</span> Make it easy for customers to request a quote fast.</li>
-                  <li><span className="text-white/80 font-semibold">Build:</span> Hero CTA + trust section + services clarity + fast contact flow.</li>
-                  <li><span className="text-white/80 font-semibold">Outcome focus:</span> More high-intent inquiries by removing steps (results vary).</li>
-                </ul>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Mobile-first layout",
+                  "Sticky CTA buttons",
+                  "Clear package sections",
+                  "Fast load structure",
+                  "Conversion-focused design",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/70"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/60">
+                <span className="font-semibold text-white/80">Note:</span> Portfolio examples are shown for design style
+                and layout quality. Your website is built and branded for{" "}
+                <span className="text-white/80">your</span> business.
+              </div>
+
+              {/* Next demo slot (public-friendly) */}
+              <div className="mt-6 rounded-3xl border border-white/10 bg-black/25 p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-semibold text-white/85">Next Demo Slot</div>
+                    <div className="mt-1 text-xs text-white/55">New project preview coming soon.</div>
+                  </div>
+                  <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/60">
+                    Coming soon
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {["Home Services", "Contractors", "Local SEO"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/70"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </Card>
-
           <div className="grid gap-5">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold">Built for service businesses</h3>
+              <h3 className="text-lg font-semibold">Built for local service businesses</h3>
               <p className="mt-2 text-sm text-white/60">
-                Clear offer, clean layout, and a fast way to contact you.
+                The best websites are simple: clear services, strong trust, and a fast way to contact you.
               </p>
+              <ul className="mt-4 grid gap-2 text-sm text-white/70">
+                <li className="flex gap-2">
+                  <span className="text-[color:var(--accent)]">✓</span> Clear calls-to-action (Book / Text / Quote)
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-[color:var(--accent)]">✓</span> Clean section flow (Why / Services / Pricing / FAQ)
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-[color:var(--accent)]">✓</span> Designed to look premium on mobile
+                </li>
+              </ul>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold">SEO-ready structure</h3>
+              <p className="mt-2 text-sm text-white/60">
+                Google needs clear location + service context. That’s why your site includes service-area and niche
+                targeting built in.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {["Orlando", "Apopka", "Central Florida", "Home Services", "Contractors", "Local SEO"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/70"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               <div className="mt-6">
                 <a
                   href="/form"
@@ -643,25 +710,9 @@ export default function HomeClient() {
                 </a>
               </div>
             </Card>
-
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold">Want an audit instead?</h3>
-              <p className="mt-2 text-sm text-white/60">
-                If you already have a site (or a competitor you like), I’ll send a quick improvement plan.
-              </p>
-              <div className="mt-6">
-                <a
-                  href={`/form?plan=${encodeURIComponent("Free Audit")}`}
-                  className="inline-flex rounded-full border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-white/85 hover:bg-white/[0.06] transition"
-                >
-                  Request Free Audit →
-                </a>
-              </div>
-            </Card>
           </div>
         </div>
       </GlowSection>
-
       {/* PRICING */}
       <GlowSection id="pricing">
         <div className="text-center">
@@ -671,16 +722,6 @@ export default function HomeClient() {
           <p className="mx-auto mt-4 max-w-3xl text-white/60">
             One-time build + a low monthly to keep everything hosted, secure, and maintained.
           </p>
-
-          {/* subtle free audit link (optional) */}
-          <div className="mt-6 flex justify-center">
-            <a
-              href={`/form?plan=${encodeURIComponent("Free Audit")}`}
-              className="rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-white/85 hover:bg-white/[0.06] transition"
-            >
-              Start with a Free Audit →
-            </a>
-          </div>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -715,17 +756,17 @@ export default function HomeClient() {
                 {p.monthlyIncludes}
               </div>
 
-              <a
-                href={`/form?plan=${encodeURIComponent(p.name)}`}
-                className={[
-                  "mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition",
-                  p.highlight
-                    ? "bg-[color:var(--accent)] text-black hover:brightness-110"
-                    : "border border-white/15 bg-white/[0.03] text-white/85 hover:bg-white/[0.06]",
-                ].join(" ")}
-              >
-                Choose {p.name}
-              </a>
+             <a
+  href={`/form?plan=${encodeURIComponent(p.name)}`}
+  className={[
+    "mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition",
+    p.highlight
+      ? "bg-[color:var(--accent)] text-black hover:brightness-110"
+      : "border border-white/15 bg-white/[0.03] text-white/85 hover:bg-white/[0.06]",
+  ].join(" ")}
+>
+  Choose {p.name}
+</a>
             </Card>
           ))}
         </div>
@@ -737,9 +778,7 @@ export default function HomeClient() {
           <h2 className="text-3xl md:text-6xl font-semibold tracking-tight">
             Quick <span className="text-[color:var(--accent)] glow">Questions</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-white/60">
-            Here are the most common things people ask before getting started.
-          </p>
+          <p className="mx-auto mt-4 max-w-3xl text-white/60">Here are the most common things people ask before getting started.</p>
         </div>
 
         <div className="mt-10 mx-auto max-w-3xl grid gap-4">
@@ -756,7 +795,7 @@ export default function HomeClient() {
 
         <div className="mt-10 flex justify-center">
           <a href="/form" className="rounded-full bg-[color:var(--accent)] px-8 py-3 font-semibold text-black hover:brightness-110 transition">
-            Get Started →
+            Start My Website →
           </a>
         </div>
       </GlowSection>
@@ -770,7 +809,7 @@ export default function HomeClient() {
           <p className="mt-3 text-white/60">Fill out the quick form and I’ll reach out with next steps.</p>
           <div className="mt-6 flex justify-center">
             <a className="rounded-full bg-[color:var(--accent)] px-8 py-3 font-semibold text-black hover:brightness-110 transition" href="/form">
-              Start Now →
+              Start Now
             </a>
           </div>
         </Card>
@@ -778,6 +817,7 @@ export default function HomeClient() {
         <footer className="mt-10 border-t border-white/10 bg-black/20">
           <div className="mx-auto max-w-6xl px-4 py-10">
             <div className="grid gap-8 md:grid-cols-3">
+              {/* Brand */}
               <div>
                 <div className="flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/[0.03] font-semibold">
@@ -790,7 +830,7 @@ export default function HomeClient() {
                 </div>
 
                 <p className="mt-4 text-sm text-white/60">
-                  Clean websites built to generate real inquiries. Orlando + Central Florida.
+                  Premium-looking websites built to convert visitors into calls, texts, and leads.
                 </p>
 
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -804,30 +844,31 @@ export default function HomeClient() {
                     href="/form"
                     className="rounded-full bg-[color:var(--accent)] px-3 py-2 text-xs font-semibold text-black hover:brightness-110 transition"
                   >
-                    Start →
+                    Start Now →
                   </a>
                 </div>
               </div>
 
+              {/* Quick Links */}
               <div>
                 <div className="text-sm font-semibold text-white/85">Quick Links</div>
                 <div className="mt-3 grid gap-2 text-sm">
-                  <a className="text-white/65 hover:text-white transition" href="/orlando-web-design">Orlando Web Design</a>
-                  <a className="text-white/65 hover:text-white transition" href="/apopka-web-design">Apopka Web Design</a>
-                  <a className="text-white/65 hover:text-white transition" href="/longwood-web-design">Longwood Web Design</a>
-                  <a className="text-white/65 hover:text-white transition" href="/winter-park-web-design">Winter Park Web Design</a>
-                  <a className="text-white/65 hover:text-white transition" href="/lake-mary-web-design">Lake Mary Web Design</a>
-                  <a className="text-white/65 hover:text-white transition" href="/sanford-web-design">Sanford Web Design</a>
-                  <a className="text-white/65 hover:text-white transition" href="/seo-orlando">SEO Orlando</a>
-                  <a className="text-white/65 hover:text-white transition" href="/florida-web-design">Florida Web Design</a>
-                  <a className="text-white/65 hover:text-white transition" href="/websites-for-contractors">Websites for Contractors</a>
-
-                  {/* ✅ Added niche quick links */}
-                  <a className="text-white/65 hover:text-white transition" href="/websites-for-pressure-washing">Websites for Pressure Washing</a>
-                  <a className="text-white/65 hover:text-white transition" href="/websites-for-mobile-detailing">Websites for Mobile Detailing</a>
+                  <a className="text-white/65 hover:text-white transition" href="/orlando-web-design">
+                    Orlando Web Design
+                  </a>
+                  <a className="text-white/65 hover:text-white transition" href="/apopka-web-design">
+                    Apopka Web Design
+                  </a>
+                  <a className="text-white/65 hover:text-white transition" href="/seo-orlando">
+                    SEO Orlando
+                  </a>
+                  <a className="text-white/65 hover:text-white transition" href="/florida-web-design">
+                    Florida Web Design
+                  </a>
                 </div>
               </div>
 
+              {/* Service Area */}
               <div>
                 <div className="text-sm font-semibold text-white/85">Service Area</div>
                 <p className="mt-3 text-sm text-white/60">
@@ -835,7 +876,7 @@ export default function HomeClient() {
                 </p>
 
                 <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/60">
-                  Want a website that looks sharp and gets leads? Fill out the form and I’ll reach out.
+                  Want a website that looks premium and gets leads? Fill out the form and I’ll reach out.
                 </div>
               </div>
             </div>
@@ -851,31 +892,26 @@ export default function HomeClient() {
           </div>
         </footer>
       </GlowSection>
+            {/* MOBILE STICKY CTA BAR */}
+      <div className="fixed inset-x-0 bottom-3 z-[60] px-4 md:hidden">
+        <div className="mx-auto max-w-6xl rounded-2xl border border-white/10 bg-black/50 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.55)] p-2">
+          <div className="grid grid-cols-2 gap-2">
+            <a
+              href="sms:4072528476?&body=Hey%20Colby%2C%20I%20saw%20SitePulse%20and%20I%20need%20a%20website%20for%20my%20business.%20Can%20you%20help%3F"
+              className="inline-flex items-center justify-center rounded-xl border border-white/12 bg-white/[0.03] px-4 py-3 text-sm font-semibold text-white/85 hover:bg-white/[0.06] transition"
+            >
+              Text Now
+            </a>
 
-      {/* MOBILE STICKY CTA BAR (shows after scroll) */}
-      {showSticky && (
-        <>
-          <div className="fixed inset-x-0 bottom-3 z-[60] px-4 md:hidden">
-            <div className="mx-auto max-w-6xl rounded-2xl border border-white/10 bg-black/50 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.55)] p-2">
-              <div className="grid grid-cols-2 gap-2">
-                <a
-                  href="sms:4072528476?&body=Hey%20Colby%2C%20I%20need%20a%20website%20for%20my%20business.%20Can%20you%20help%3F"
-                  className="inline-flex items-center justify-center rounded-xl border border-white/12 bg-white/[0.03] px-4 py-3 text-sm font-semibold text-white/85 hover:bg-white/[0.06] transition"
-                >
-                  Text Now
-                </a>
-
-                <a
-                  href="/form"
-                  className="inline-flex items-center justify-center rounded-xl bg-[color:var(--accent)] px-4 py-3 text-sm font-semibold text-black hover:brightness-110 transition"
-                >
-                  Start Now
-                </a>
-              </div>
-            </div>
+            <a
+              href="/form"
+              className="inline-flex items-center justify-center rounded-xl bg-[color:var(--accent)] px-4 py-3 text-sm font-semibold text-black hover:brightness-110 transition"
+            >
+              Start Now
+            </a>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </main>
   );
 }
